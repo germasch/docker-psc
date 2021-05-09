@@ -18,9 +18,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+          key: ${{ runner.os }}-build-docker-spack-${{ github.sha }}
+          # restore-keys: |
+          #   ${{ runner.os }}-buildx-
   
       - name: Login to ghcr
         if: github.event_name != 'pull_request'
@@ -37,7 +37,7 @@ jobs:
           file: psc-spack-ubuntu-18.04/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/germasch/psc-spack-ubuntu-18.04:latest
+          tags: ghcr.io/germasch/psc-spack-ubuntu-18.04:t1
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Image digest

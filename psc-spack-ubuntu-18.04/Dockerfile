@@ -19,20 +19,20 @@ RUN spack config add "packages:all:target: [haswell]" \
 
 #RUN spack dev-build -u cmake psc@develop
 
-RUN spack env create -d psc-env \
-    && spack env activate psc-env \
-    && spack add openmpi \
-    && spack install
+RUN spack env create -d psc-env
+
+# RUN spack env activate psc-env && spack add openmpi \
+#     && spack install
 
 RUN spack env activate psc-env && spack add pkgconf \
     && spack install
 
-RUN spack env activate psc-env && spack add cmake \
-    && spack install
+# RUN spack env activate psc-env && spack add cmake \
+#     && spack install
 
-RUN spack env activate psc-env && spack add adios2 \
-    && spack install
+# RUN spack env activate psc-env && spack add adios2 \
+#     && spack install
 
-RUN spack env activate psc-env && spack add hdf5 +hl \
-    && spack install
+# RUN spack env activate psc-env && spack add hdf5 +hl \
+#     && spack install
 
