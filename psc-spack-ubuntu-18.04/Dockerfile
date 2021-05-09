@@ -30,3 +30,5 @@ RUN spack env activate psc-env && spack add adios2 \
 RUN spack env activate psc-env && spack add hdf5 +hl \
     && spack install
 
+RUN spack env activate psc-env && spack add cuda \
+    && spack install
