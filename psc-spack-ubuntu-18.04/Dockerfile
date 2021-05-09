@@ -27,6 +27,6 @@ RUN spack env activate psc-env && spack add openmpi \
 RUN spack env activate psc-env && spack add adios2 \
     && spack install
 
-# RUN spack env activate psc-env && spack add hdf5 +hl \
-#     && spack install
+RUN spack env activate psc-env && spack add hdf5 +hl \
+    && spack install
 
