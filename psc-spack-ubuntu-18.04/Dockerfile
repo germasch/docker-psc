@@ -5,7 +5,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     libbz2-dev \
     silversearcher-ag vim less
 
-RUN echo "packages:\n  all:\n    target: [haswell]\n" >> .spack/packages.yaml
+RUN echo -e "packages:\n  all:\n    target: [haswell]\n" > .spack/packages.yaml
 
 RUN spack external find && cat .spack/packages.yaml
 
