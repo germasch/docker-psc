@@ -29,3 +29,7 @@ RUN spack env activate psc-env && spack add pkgconf \
 
 RUN spack env activate psc-env && spack add cmake \
     && spack install
+
+RUN spack env activate psc-env && spack add adios2 \
+    && spack install
+
