@@ -19,8 +19,8 @@ jobs:
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-build-docker-spack-${{ github.sha }}
-          # restore-keys: |
-          #   ${{ runner.os }}-buildx-
+          restore-keys: |
+            ${{ runner.os }}-build-docker-spack
   
       - name: Login to ghcr
         if: github.event_name != 'pull_request'
