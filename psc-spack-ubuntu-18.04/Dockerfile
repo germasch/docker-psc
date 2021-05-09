@@ -36,3 +36,6 @@ RUN spack env activate psc-env && spack add pkgconf \
 # RUN spack env activate psc-env && spack add hdf5 +hl \
 #     && spack install
 
+RUN spack env activate psc-env && spack add lz4 \
+    && spack install
+
