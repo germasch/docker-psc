@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  psc-cpp-ubuntu-20.04:
+  psc-cpp-ubuntu-20-04:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

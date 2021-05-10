@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  spack-ubuntu-20.04:
+  spack-ubuntu-20-04:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,7 +43,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  psc-spack-ubuntu-20.04:
+  psc-spack-ubuntu-20-04:
     needs: spack-ubuntu-20.04
     runs-on: ubuntu-latest
     steps:
