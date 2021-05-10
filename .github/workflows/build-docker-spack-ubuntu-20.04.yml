@@ -38,9 +38,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get changed files spack-ubuntu-20.04
+        id: changed-spack-ubuntu-20-04
+        uses: tj-actions/changed-files@v5.3
+        with:
+          files: |
+            spack-ubuntu-20.04/Dockerfiles
+
       - name: Build and push
         id: docker_build
-        if: contains(steps.changed-files.outputs.modified_files, 'spack-ubuntu-20.04/Dockerfile')
+        if: steps.changed-ubuntu-20-04.any_changed == 'true'
         uses: docker/build-push-action@v2
         with:
           context: spack-ubuntu-20.04/
