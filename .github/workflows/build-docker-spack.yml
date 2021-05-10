@@ -1,4 +1,4 @@
-name: Spack CI to GHCR 
+name: psc-spack-ubuntu-18.04 build and push to GHCR
 
 on:
   push:

@@ -6,7 +6,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     silversearcher-ag vim less
 
 RUN spack config add "packages:all:target: [haswell]" \
-    && spack external find \&& spack config get packages
+    && spack external find \
+    && spack config get packages
 
 # RUN git clone https://github.com/psc-code/psc \
 #     && spack repo add psc/spack/psc
