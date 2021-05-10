@@ -32,3 +32,6 @@ RUN spack env activate psc-env && spack add hdf5 +hl \
 
 RUN spack env activate psc-env && spack add cuda \
     && spack install
+
+RUN spack env activate psc-env && spack add thrust rmm \
+    && spack install
