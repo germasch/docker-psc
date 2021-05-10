@@ -36,8 +36,9 @@ jobs:
             ${{ runner.os }}-build-docker-spack
   
       - name: Login to ghcr
-        if: steps.changed-ubuntu-20-04.any_changed == 'true'
-        if: github.event_name != 'pull_request'
+        if: |
+          steps.changed-ubuntu-20-04.any_changed == 'true'
+          && github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
