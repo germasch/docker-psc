@@ -73,6 +73,7 @@ jobs:
         with:
           files: |
             spack-ubuntu-20.04/Dockerfiles
+            psc-spack-ubuntu-20.04/Dockerfiles
       
       - name: Set up Docker Buildx
         id: buildx
@@ -141,17 +142,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Build and push
-      #   id: docker_build
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: psc-spack-cuda-ubuntu-20.04/
-      #     file: psc-spack-cuda-ubuntu-20.04/Dockerfile
-      #     builder: ${{ steps.buildx.outputs.name }}
-      #     push: true
-      #     tags: ghcr.io/germasch/psc-spack-cuda-ubuntu-20.04:latest
-      #     cache-from: type=local,src=/tmp/.buildx-cache
-      #     cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: psc-spack-cuda-ubuntu-20.04/
+          file: psc-spack-cuda-ubuntu-20.04/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ghcr.io/germasch/psc-spack-cuda-ubuntu-20.04:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
