@@ -30,8 +30,12 @@ RUN spack env activate psc-env && spack add adios2 \
 RUN spack env activate psc-env && spack add hdf5 +hl \
     && spack install
 
+RUN df -h
+RUN spack clean -a
+RUN df -h
+
 RUN spack env activate psc-env && spack add cuda \
     && spack install
 
-RUN spack env activate psc-env && spack add thrust rmm \
-    && spack install
+# RUN spack env activate psc-env && spack add thrust rmm \
+#     && spack install
