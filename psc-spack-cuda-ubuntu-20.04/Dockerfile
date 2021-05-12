@@ -68,6 +68,7 @@ ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
 RUN echo "  cuda: {externals: [{spec: cuda@11.3.0, prefix: /usr/local}]}" >> .spack/packages.yaml
 
+ARG FORCE_REBUILD=hack
 RUN git clone https://github.com/psc-code/psc \
     && spack repo add psc/spack/psc
 
