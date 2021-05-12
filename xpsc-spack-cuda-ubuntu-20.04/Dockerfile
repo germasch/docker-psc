@@ -1,0 +1,52 @@
+
+ARG VARIANT="ubuntu-20.04"
+FROM ghcr.io/germasch/spack-cuda-${VARIANT}:latest
+
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+    libopenmpi-dev ninja-build \
+    apt-transport-https ca-certificates gnupg software-properties-common wget \
+    libhdf5-openmpi-dev
+
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc  \
+    | gpg --dearmor - > /etc/apt/trusted.gpg.d/kitware.gpg \
+    && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' \
+    && apt-get update \
+    && apt-get -y install --no-install-recommends cmake
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends libssl-dev \
+    libbz2-dev liblz4-dev libfabric-dev libffi-dev libsodium-dev \
+    libpkgconf-dev libzstd-dev libzmq3-dev zlib1g-dev \
+    libpng-dev libblosc-dev libsnappy-dev \
+    silversearcher-ag vim less 
+
+RUN spack config add "packages:all:target: [haswell]" \
+    && spack external find
+
+RUN echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  lz4: {externals: [{spec: lz4@1.9.2, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  libffi: {externals: [{spec: libffi@3.3, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  pkgconf: {externals: [{spec: pkgconf@1.6.3, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  zstd: {externals: [{spec: zstd@1.4.4, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  zlib: {externals: [{spec: zlib@1.2.11, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  libzmq: {externals: [{spec: libzmq@4.1.2, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  libpng: {externals: [{spec: libpng@1.6.37, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  c-blosc: {externals: [{spec: c-blosc@1.17.1, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  snappy: {externals: [{spec: snappy@1.1.8, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  hdf5: {externals: [{spec: hdf5@1.10.4 +hl, prefix: /usr}]}" >> .spack/packages.yaml && \
+    echo "  libsodium: {externals: [{spec: libsodium@1.0.17, prefix: /usr}]}" >> .spack/packages.yaml
+
+#    echo "  sz: {externals: [{spec: sz@1.0.4, prefix: /usr}]}" >> .spack/packages.yaml && \
+
+RUN spack env create -d psc-env
+
+RUN spack env activate psc-env && spack add adios2 \
+    && spack install
+
+RUN git clone --depth 1 https://github.com/psc-code/psc \
+    && spack repo add psc/spack/psc
+
+RUN spack env activate psc-env && spack add thrust \
+    && spack install
+
