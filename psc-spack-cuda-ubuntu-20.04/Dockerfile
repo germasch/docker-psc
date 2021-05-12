@@ -66,11 +66,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-mark hold libcublas-dev-11-3 libnccl-dev
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
+RUN echo "  cuda: {externals: [{spec: cuda@11.3.0, prefix: /usr/local}]}" >> .spack/packages.yaml
+
 RUN git clone https://github.com/psc-code/psc \
     && spack repo add psc/spack/psc
 
-RUN echo "  cuda: {externals: [{spec: cuda@11.3.0, prefix: /usr/local}]}" >> .spack/packages.yaml
-
-# RUN spack env activate psc-env && spack add thrust rmm gtensor \
-#     && spack install
+RUN spack env activate psc-env && spack add thrust \
+    && spack install
 
