@@ -231,7 +231,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: xpsc-spack-cuda-ubuntu-20.04/
-          file: xpsc-spack--cuda-ubuntu-20.04/Dockerfile
+          file: xpsc-spack-cuda-ubuntu-20.04/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ghcr.io/germasch/xpsc-spack-cuda-ubuntu-20.04:latest
