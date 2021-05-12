@@ -45,7 +45,7 @@ RUN spack env activate psc-env && spack add adios2 \
     && spack install
 
 RUN git clone --depth 1 https://github.com/psc-code/psc \
-    && spack repo add psc/spack/psc
+    && spack repo add --scope system psc/spack/psc
 
 RUN spack env activate psc-env && spack add thrust \
     && spack install
