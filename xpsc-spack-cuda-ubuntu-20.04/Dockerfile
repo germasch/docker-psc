@@ -21,7 +21,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     libpng-dev libblosc-dev libsnappy-dev \
     silversearcher-ag vim less 
 
-RUN spack config add "packages:all:target: [haswell]" \
+RUN spack config --scope system add "packages:all:target: [haswell]" \
     && spack external find --scope system
 
 RUN echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
