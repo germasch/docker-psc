@@ -230,11 +230,11 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: xpsc-spack-ubuntu-20.04/
-          file: xpsc-spack-ubuntu-20.04/Dockerfile
+          context: xpsc-spack-cuda-ubuntu-20.04/
+          file: xpsc-spack--cuda-ubuntu-20.04/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/germasch/xpsc-spack-ubuntu-20.04:latest
+          tags: ghcr.io/germasch/xpsc-spack-cuda-ubuntu-20.04:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
