@@ -22,22 +22,22 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     silversearcher-ag vim less 
 
 RUN spack config add "packages:all:target: [haswell]" \
-    && spack external find
+    && spack external find --scope system
 
-RUN echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  lz4: {externals: [{spec: lz4@1.9.2, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  libffi: {externals: [{spec: libffi@3.3, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  pkgconf: {externals: [{spec: pkgconf@1.6.3, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  zstd: {externals: [{spec: zstd@1.4.4, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  zlib: {externals: [{spec: zlib@1.2.11, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  libzmq: {externals: [{spec: libzmq@4.1.2, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  libpng: {externals: [{spec: libpng@1.6.37, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  c-blosc: {externals: [{spec: c-blosc@1.17.1, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  snappy: {externals: [{spec: snappy@1.1.8, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  hdf5: {externals: [{spec: hdf5@1.10.4 +hl, prefix: /usr}]}" >> .spack/packages.yaml && \
-    echo "  libsodium: {externals: [{spec: libsodium@1.0.17, prefix: /usr}]}" >> .spack/packages.yaml
+RUN echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  lz4: {externals: [{spec: lz4@1.9.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  libffi: {externals: [{spec: libffi@3.3, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  pkgconf: {externals: [{spec: pkgconf@1.6.3, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  zstd: {externals: [{spec: zstd@1.4.4, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  zlib: {externals: [{spec: zlib@1.2.11, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  libzmq: {externals: [{spec: libzmq@4.1.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  libpng: {externals: [{spec: libpng@1.6.37, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  c-blosc: {externals: [{spec: c-blosc@1.17.1, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  snappy: {externals: [{spec: snappy@1.1.8, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  hdf5: {externals: [{spec: hdf5@1.10.4 +hl, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    echo "  libsodium: {externals: [{spec: libsodium@1.0.17, prefix: /usr}]}" >> /etc/spack/packages.yaml
 
-#    echo "  sz: {externals: [{spec: sz@1.0.4, prefix: /usr}]}" >> .spack/packages.yaml && \
+#    echo "  sz: {externals: [{spec: sz@1.0.4, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
 
 RUN spack env create -d psc-env
 
