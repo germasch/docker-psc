@@ -38,7 +38,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: spack-ubuntu-20.04/
+          context: .
           file: spack-ubuntu-20.04/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
@@ -80,7 +80,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: psc-spack-ubuntu-20.04/
+          context: .
           file: psc-spack-ubuntu-20.04/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true

@@ -6,25 +6,24 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
     libopenmpi-dev ninja-build \
     apt-transport-https ca-certificates gnupg software-properties-common wget \
-    libhdf5-openmpi-dev
+    libhdf5-openmpi-dev \
+    libssl-dev \
+    libbz2-dev liblz4-dev libfabric-dev libffi-dev libsodium-dev \
+    libpkgconf-dev libzstd-dev libzmq3-dev zlib1g-dev \
+    libpng-dev libblosc-dev libsnappy-dev \
+    silversearcher-ag vim less \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc  \
     | gpg --dearmor - > /etc/apt/trusted.gpg.d/kitware.gpg \
     && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main' \
     && apt-get update \
-    && apt-get -y install --no-install-recommends cmake
-
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends libssl-dev \
-    libbz2-dev liblz4-dev libfabric-dev libffi-dev libsodium-dev \
-    libpkgconf-dev libzstd-dev libzmq3-dev zlib1g-dev \
-    libpng-dev libblosc-dev libsnappy-dev \
-    silversearcher-ag vim less 
+    && apt-get -y install --no-install-recommends cmake \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN spack config --scope system add "packages:all:target: [haswell]" \
-    && spack external find --scope system
-
-RUN echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
+    && spack external find --scope system && \
+    echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
     echo "  lz4: {externals: [{spec: lz4@1.9.2, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
     echo "  libffi: {externals: [{spec: libffi@3.3, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
     echo "  pkgconf: {externals: [{spec: pkgconf@1.6.3, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
@@ -39,13 +38,10 @@ RUN echo "  libfabric: {externals: [{spec: libfabric@1.6.2, prefix: /usr}]}" >> 
 
 #    echo "  sz: {externals: [{spec: sz@1.0.4, prefix: /usr}]}" >> /etc/spack/packages.yaml && \
 
-RUN spack env create -d psc-env
-
-RUN spack env activate psc-env && spack add adios2 \
+RUN spack env create -d psc-env && \
+    spack env activate psc-env && spack add adios2 \
     && spack install
 
-RUN git clone --depth 1 https://github.com/psc-code/psc \
-    && spack repo add --scope system psc/spack/psc
+COPY spack/ spack
 
-# RUN spack env activate psc-env && spack add thrust rmm cuda \
-#     && spack install
+RUN spack repo add --scope system spack/psc
