@@ -40,7 +40,7 @@ RUN spack config --scope system add "packages:all:target: [haswell]" \
 
 RUN spack env create -d psc-env && \
     spack env activate psc-env && spack add adios2 \
-    && spack install
+    && spack install && spack clean -a
 
 COPY spack/ spack
 
